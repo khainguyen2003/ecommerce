@@ -14,35 +14,30 @@ import org.springframework.kafka.core.ProducerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-@Configuration
-@Slf4j(topic = "KAFKA-PRODUCER")
+//@Configuration
+//@Slf4j(topic = "KAFKA-PRODUCER")
 public class KafkaProducerConfig {
-    @Value("${spring.kafka.bootstrap-servers}")
-    private String bootstrapServers;
-
-    @Bean
-    public ProducerFactory<String, String> producerFactory() {
-        Map<String, Object> configProps = new HashMap<>();
-        configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-
-//        if ("prod".equals(activeProfile)) {
-//            configProps.put("security.protocol", "SSL");
-//            configProps.put("ssl.truststore.type", "none");
-//            configProps.put("endpoint.identification.algorithm", "");
-//        }
-
-        return new DefaultKafkaProducerFactory<>(configProps);
-    }
-
-    @Bean
-    public KafkaTemplate<String, String> kafkaTemplate() {
-        return new KafkaTemplate<>(producerFactory());
-    }
-
-    @Bean
-    public NewTopic confirmAccount() {
-        return new NewTopic("confirm-account-topic", 3, (short) 1);
-    }
+//    @Value("${spring.kafka.bootstrap-servers}")
+//    private String bootstrapServers;
+//
+//    @Bean
+//    public ProducerFactory<String, String> producerFactory() {
+//        Map<String, Object> configProps = new HashMap<>();
+//        configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+//        configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+//        configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+//
+////        if ("prod".equals(activeProfile)) {
+////            configProps.put("security.protocol", "SSL");
+////            configProps.put("ssl.truststore.type", "none");
+////            configProps.put("endpoint.identification.algorithm", "");
+////        }
+//
+//        return new DefaultKafkaProducerFactory<>(configProps);
+//    }
+//
+//    @Bean
+//    public KafkaTemplate<String, String> kafkaTemplate() {
+//        return new KafkaTemplate<>(producerFactory());
+//    }
 }

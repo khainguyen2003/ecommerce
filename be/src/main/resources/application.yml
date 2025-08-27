@@ -1,4 +1,4 @@
-# C?u hình server và ?ng d?ng
+# C?u hï¿½nh server vï¿½ ?ng d?ng
 server:
   port: 9200
 
@@ -6,14 +6,12 @@ spring:
   application:
     name: ecommerce
     serverName: http://localhost:8080
-  
-  # C?u hình k?t n?i c? s? d? li?u (PostgreSQL)
+
   datasource:
     url: jdbc:postgresql://localhost:5433/ecommerce
     username: postgres
     password: 123456
-  
-  # C?u hình JPA và Hibernate
+
   jpa:
     properties:
       hibernate:
@@ -22,8 +20,7 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-  
-  # C?u hình g?i email (Gmail SMTP)
+
   mail:
     from: khainv2k3@gmail.com
     host: smtp.gmail.com
@@ -36,22 +33,32 @@ spring:
           auth: true
           starttls:
             enable: true
-  
-  # C?u hình t?i file lên
   servlet:
     multipart:
       max-file-size: 50MB
       max-request-size: 50MB
 
-  # C?u hình Kafka
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: localhost:9092,localhost:9093,localhost:9095
     admin:
       auto-create: true
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        session:
+          timeout:
+            ms: 15000
+        spring.json.trusted.packages: '*'
+      enable-auto-commit: true
+      auto-offset-reset: earliest
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring:
+          json:
+            add.type.headers: true
 
-# C?u hình endpoint t? ??nh ngh?a
 endpoint:
   confirmUser: http://localhost:${server.port}/user/confirm
-
-app:
-  
